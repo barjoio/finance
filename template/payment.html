@@ -1,0 +1,13 @@
+{{template "_header.html" .}}
+
+<form action="/payment" method="POST">
+    <select name="category">
+        {{range $category := .categories}}
+        <option value="{{$category.ID}}">{{$category.Name}}</option>
+        {{end}}
+    </select>
+    <input name="value" type="number" placeholder="Amount">
+    <button name="submit" type="submit">Submit</button>
+</form>
+
+{{template "_footer.html"}}

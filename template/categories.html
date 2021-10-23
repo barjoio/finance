@@ -1,0 +1,28 @@
+{{template "_header.html" .}}
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Projected</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{range $category := .categories}}
+        <tr>
+            <td>{{$category.Name}}</td>
+            <td>{{$category.Projected}}</td>
+        </tr>
+        {{end}}
+    </tbody>
+</table>
+
+<h2>New category</h2>
+
+<form action="/category" method="POST">
+    <input name="name" type="text" placeholder="Category name">
+    <input name="projected_value" type="text" placeholder="Projected value">
+    <button name="submit" type="submit">Submit</button>
+</form>
+
+{{template "_footer.html"}}

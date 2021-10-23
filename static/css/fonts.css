@@ -1,0 +1,69 @@
+/* Manrope */
+
+@font-face {
+  src: url(/font/Manrope/Manrope-Bold.ttf);
+  font-family: Manrope-Bold;
+}
+@font-face {
+  src: url(/font/Manrope/Manrope-ExtraBold.ttf);
+  font-family: Manrope-ExtraBold;
+}
+@font-face {
+  src: url(/font/Manrope/Manrope-ExtraLight.ttf);
+  font-family: Manrope-ExtraLight;
+}
+@font-face {
+  src: url(/font/Manrope/Manrope-Light.ttf);
+  font-family: Manrope-Light;
+}
+@font-face {
+  src: url(/font/Manrope/Manrope-Medium.ttf);
+  font-family: Manrope-Medium;
+}
+@font-face {
+  src: url(/font/Manrope/Manrope-Regular.ttf);
+  font-family: Manrope-Regular;
+}
+@font-face {
+  src: url(/font/Manrope/Manrope-SemiBold.ttf);
+  font-family: Manrope-SemiBold;
+}
+
+/* Inter */
+
+@font-face {
+  src: url(/font/Inter/Inter-Black.ttf);
+  font-family: Inter-Black;
+}
+@font-face {
+  src: url(/font/Inter/Inter-Bold.ttf);
+  font-family: Inter-Bold;
+}
+@font-face {
+  src: url(/font/Inter/Inter-ExtraBold.ttf);
+  font-family: Inter-ExtraBold;
+}
+@font-face {
+  src: url(/font/Inter/Inter-ExtraLight.ttf);
+  font-family: Inter-ExtraLight;
+}
+@font-face {
+  src: url(/font/Inter/Inter-Light.ttf);
+  font-family: Inter-Light;
+}
+@font-face {
+  src: url(/font/Inter/Inter-Medium.ttf);
+  font-family: Inter-Medium;
+}
+@font-face {
+  src: url(/font/Inter/Inter-Regular.ttf);
+  font-family: Inter-Regular;
+}
+@font-face {
+  src: url(/font/Inter/Inter-SemiBold.ttf);
+  font-family: Inter-SemiBold;
+}
+@font-face {
+  src: url(/font/Inter/Inter-Thin.ttf);
+  font-family: Inter-Thin;
+}

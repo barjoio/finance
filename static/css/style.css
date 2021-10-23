@@ -1,0 +1,115 @@
+:root {
+  --nav_height: 3rem;
+  --box_shadow: 0 0 2rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+body * {
+  box-sizing: border-box;
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0;
+  transition: 250ms ease-in-out;
+  pointer-events: none;
+}
+
+body.covered::after {
+  opacity: 0.75;
+}
+
+button {
+  background-color: black;
+  color: white;
+  border: none;
+  overflow-x: hidden;
+  cursor: pointer;
+}
+
+button.s2 {
+  background-color: white;
+  color: black;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav_height);
+  width: 100vw;
+  border-bottom: 1px solid lightgrey;
+  padding-left: 1rem;
+  font-family: Inter-Bold;
+}
+
+nav > button {
+  width: var(--nav_height);
+  height: var(--nav_height);
+}
+
+.popout {
+  position: absolute;
+  top: 0;
+  left: calc((100%) * -1);
+  width: calc(100% - var(--nav_height));
+  height: 100vh;
+  background-color: white;
+  box-shadow: var(--box_shadow);
+  font-family: Inter-Regular;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  font-size: 1.5rem;
+  transition: 250ms ease-in-out;
+  z-index: 1;
+}
+
+.popout.open {
+  left: 0;
+}
+
+.popout > button {
+  position: absolute;
+  width: var(--nav_height);
+  height: var(--nav_height);
+  top: 0;
+  right: 0;
+  background-color: rgb(255, 160, 143);
+  color: rgb(175, 52, 36);
+  font-size: 1.25rem;
+}
+
+.popout > a {
+  text-decoration: none;
+  color: black;
+  margin-bottom: 2rem;
+}
+
+body {
+  padding-top: var(--nav_height);
+  margin: 0;
+  width: 100%;
+  height: calc(100vh - var(--nav_height));
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  padding-top: calc(var(--nav_height) / 3);
+}
+
+.up {
+  color: green;
+}
+
+.down {
+  color: red;
+}
