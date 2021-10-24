@@ -2,8 +2,8 @@
 
 Simple app for managing a monthly budget.
 
-![preview1.png](./preview1.png)
+<img width="400" src="preview1.png">
 
-![preview2.png](./preview2.png)
+<img width="400" src="preview2.png">
 
-![preview3.png](./preview3.png)
+<img width="400" src="preview3.png">
