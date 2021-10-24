@@ -17,18 +17,22 @@ import (
 var thisDir, _ = filepath.Abs(filepath.Dir(os.Args[0]))
 
 func main() {
+	// Connect to database
 	db, err := gorm.Open(sqlite.Open("finance.db"), &gorm.Config{})
 	check(err)
 
+	// Migrate tables
 	err = db.AutoMigrate(
 		&Payment{},
 		&Category{},
 	)
 	check(err)
 
+	// Load templates
 	router := gin.Default()
 	router.LoadHTMLGlob(path.Join(thisDir, "template/*.html"))
 
+	// Serve static files or 404
 	router.NoRoute(func(c *gin.Context) {
 		resource := c.Request.URL.Path
 		staticFile := path.Join(thisDir, "static", resource)
@@ -41,16 +45,19 @@ func main() {
 		})
 	})
 
+	// Homepage
 	router.GET("/", func(c *gin.Context) {
 		now := time.Now()
 		c.Redirect(http.StatusMovedPermanently, fmt.Sprintf("/overview/%d/%d", now.Year(), now.Month()))
 	})
 
+	// Overview
 	router.GET("/overview/:year/:month", func(c *gin.Context) {
 		year, yearErr := strconv.Atoi(c.Param("year"))
 		month, monthErr := strconv.Atoi(c.Param("month"))
 		now := time.Now()
 
+		// Date validation
 		if yearErr != nil || monthErr != nil || month > 12 || month < 1 {
 			c.String(http.StatusBadRequest, "Error: Invalid date")
 			return
@@ -62,6 +69,7 @@ func main() {
 			return
 		}
 
+		// Retrieve summary data from db
 		var summary []struct {
 			ID         int
 			Name       string
@@ -69,9 +77,9 @@ func main() {
 			Actual     int
 			Difference int
 		}
-
 		db.Raw(read("sql/monthly_summary.sql"), year, month).Scan(&summary)
 
+		// Calculate totals
 		var sums [3]int
 		for _, v := range summary {
 			sums[0] += v.Projected
@@ -79,9 +87,11 @@ func main() {
 			sums[2] += v.Difference
 		}
 
+		// Retrieve payments data from db
 		var payments []Payment
 		db.Joins("Category").Where("year = ? AND month = ?", year, month).Find(&payments)
 
+		// tmp
 		income := 2000
 
 		c.HTML(http.StatusOK, "overview.html", gin.H{
@@ -95,6 +105,7 @@ func main() {
 		})
 	})
 
+	// Make a payment
 	router.GET("/payment", func(c *gin.Context) {
 		var categories []Category
 		db.Find(&categories)
@@ -105,6 +116,7 @@ func main() {
 		})
 	})
 
+	// Post point to make a payment
 	router.POST("/payment", func(c *gin.Context) {
 		c.Request.ParseForm()
 		form := c.Request.PostForm
@@ -129,6 +141,7 @@ func main() {
 		c.Redirect(http.StatusMovedPermanently, "/")
 	})
 
+	// Categories
 	router.GET("/categories", func(c *gin.Context) {
 		var categories []Category
 		db.Find(&categories)
@@ -139,6 +152,7 @@ func main() {
 		})
 	})
 
+	// Post point to add new category
 	router.POST("/category", func(c *gin.Context) {
 		c.Request.ParseForm()
 		form := c.Request.PostForm
@@ -156,6 +170,7 @@ func main() {
 		c.Redirect(http.StatusMovedPermanently, "/categories")
 	})
 
+	// Automatic payments
 	router.GET("/automatic", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "automatic.html", gin.H{
 			"title": "Automatic Payments",

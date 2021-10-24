@@ -1,87 +1,98 @@
 {{template "_header.html" .}}
 
+<h1>Summary</h1>
+
 <table>
-    <thead>
-        <tr>
-            <th>Category</th>
-            <th>Projected</th>
-            <th>Actual</th>
-            <th>Difference</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{range $i, $summary := .summary}}
-        <tr>
-            <td>{{$summary.Name}}</td>
-            <td>{{$summary.Projected}}</td>
-            <td>{{$summary.Actual}}</td>
-            <td class="{{if ge $summary.Difference 0}}up{{else}}down{{end}}">{{$summary.Difference}}</td>
-        </tr>
-        {{end}}
-    </tbody>
-    <tfoot>
-        <tr>
-            <td>Total</td>
-            <td>{{index .sums 0}}</td>
-            <td>{{index .sums 1}}</td>
-            <td>{{index .sums 2}}</td>
-        </tr>
-    </tfoot>
+	<thead>
+		<tr>
+			<th>Summary</th>
+			<th>Projected</th>
+			<th>Actual</th>
+			<th>Difference</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Total Income</td>
+			<td>2000</td>
+			<td>2000</td>
+			<td>0.00</td>
+		</tr>
+		<tr>
+			<td>Total Expenses</td>
+			<td>{{index .sums 0}}</td>
+			<td>{{index .sums 1}}</td>
+			<td>{{index .sums 2}}</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td>NET</td>
+			<td>{{.projectedNet}}</td>
+			<td>{{.actualNet}}</td>
+			<td class="{{if ge .netDifference 0}}up_l{{else}}down_l{{end}}">
+				{{.netDifference}}
+			</td>
+		</tr>
+	</tfoot>
 </table>
+
 <table>
-    <thead>
-        <tr>
-            <th>Summary</th>
-            <th>Projected</th>
-            <th>Actual</th>
-            <th>Difference</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Total Income</td>
-            <td>2000</td>
-            <td>2000</td>
-            <td>0.00</td>
-        </tr>
-        <tr>
-            <td>Total Expenses</td>
-            <td>{{index .sums 0}}</td>
-            <td>{{index .sums 1}}</td>
-            <td>{{index .sums 2}}</td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <td>NET</td>
-            <td>{{.projectedNet}}</td>
-            <td>{{.actualNet}}</td>
-            <td class="{{if ge .netDifference 0}}up{{else}}down{{end}}">{{.netDifference}}</td>
-        </tr>
-    </tfoot>
+	<thead>
+		<tr>
+			<th>Category</th>
+			<th>Projected</th>
+			<th>Actual</th>
+			<th>Difference</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{range $i, $summary := .summary}}
+		<tr>
+			<td>{{$summary.Name}}</td>
+			<td>{{$summary.Projected}}</td>
+			<td>{{$summary.Actual}}</td>
+			<td
+				class="{{if ge $summary.Difference 0}}up_d{{else}}down_d{{end}}"
+			>
+				{{$summary.Difference}}
+			</td>
+		</tr>
+		{{end}}
+	</tbody>
+	<tfoot>
+		<tr>
+			<td>Total</td>
+			<td>{{index .sums 0}}</td>
+			<td>{{index .sums 1}}</td>
+			<td class="{{if ge (index .sums 2) 0}}up_l{{else}}down_l{{end}}">
+				{{index .sums 2}}
+			</td>
+		</tr>
+	</tfoot>
 </table>
 
 <h2>Payments submitted this month</h2>
 
 <table>
-    <thead>
-        <tr>
-            <th>Day</th>
-            <th>Time</th>
-            <th>Category</th>
-            <th>Amount</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{range $payment := .payments}}
-        <tr>
-            <td>{{$payment.Day}}</td>
-            <td>{{$payment.Hour}}:{{$payment.Minute}}</td>
-            <td>{{$payment.Category.Name}}</td>
-            <td>{{$payment.Value}}</td>
-        </tr>
-        {{end}}
-    </tbody>
+	<thead>
+		<tr>
+			<th>Day</th>
+			<th>Time</th>
+			<th>Category</th>
+			<th>Amount</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{range $payment := .payments}}
+		<tr>
+			<td>{{$payment.Day}}</td>
+			<td>{{$payment.Hour}}:{{$payment.Minute}}</td>
+			<td>{{$payment.Category.Name}}</td>
+			<td>{{$payment.Value}}</td>
+		</tr>
+		{{end}}
+	</tbody>
 </table>
 
 {{template "_footer.html"}}
